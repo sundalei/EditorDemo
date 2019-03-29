@@ -33,6 +33,9 @@ public class EmployeeEditor extends Composite implements Editor<Employee> {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
-	
+	public void resetValues() {
+		name.setValue("");
+		employeeTitle.setValue("");
+	}
 
 }
