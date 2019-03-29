@@ -24,7 +24,7 @@ public class EditorDemo implements EntryPoint, ValueChangeHandler<String> {
 	public void onValueChange(ValueChangeEvent<String> event) {
 		String page = event.getValue().trim();
 		if ((page == null) || (page.equals(""))) {
-			// examples.showIntro();
+			//examples.showIntro();
 		}
 	}
 }
