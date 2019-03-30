@@ -8,10 +8,13 @@ import org.gwtproject.tutorial.client.widgets.ContactEditor;
 import org.gwtproject.tutorial.client.widgets.PhoneBookView;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -79,5 +82,41 @@ public class CompanyView extends Composite {
 	
 	@UiField
 	Button listAllContactsButton2;
+	
+	private void hideAllWidgets() {
+		if(introPanel != null) {
+			introPanel.setVisible(false);
+		}
+		if(employeeView != null) {
+			employeeView.setVisible(false);
+		}
+		if (phoneBookView != null) {
+			phoneBookView.setVisible(false);
+		}
+		if(contactEditor != null) {
+			contactEditor.setVisible(false);
+		}
+		if(allContactsEditor != null) {
+			allContactsEditor.setVisible(false);
+		}
+		if(allContactsEditor2 != null) {
+			allContactsEditor2.setVisible(false);
+		}
+	}
+	
+	@UiHandler("introPanelButton")
+	void onClickIntroduction(ClickEvent e) {
+		History.newItem("");
+	}
+	
+	public void showIntro() {
+		hideAllWidgets();
+		if (introPanel == null) {
+			introPanel = new IntroPanel();
+			setWidgetAsExample(introPanel);
+		} else {
+			introPanel.setVisible(true);
+		}
+	}
 
 }
