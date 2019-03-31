@@ -26,6 +26,16 @@ public class EditorDemo implements EntryPoint, ValueChangeHandler<String> {
 		
 		if ((page == null) || (page.equals(""))) {
 			examples.showIntro();
+		} else if (page.equals(HistoryTokens.EMPLOYEES)) {
+			examples.showEmployees();
+		} else if (page.equals(HistoryTokens.PHONEBOOK)) {
+			// examples.showPhoneBook();
+		} else if (page.equals(HistoryTokens.CONTACTS)) {
+			// examples.showContacts();
+		} else if (page.equals(HistoryTokens.LIST_1)) {
+			// examples.showList1();
+		} else if (page.equals(HistoryTokens.LIST_2)) {
+			// examples.showList2();
 		}
 	}
 }

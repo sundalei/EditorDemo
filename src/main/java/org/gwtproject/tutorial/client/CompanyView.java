@@ -118,5 +118,35 @@ public class CompanyView extends Composite {
 			introPanel.setVisible(true);
 		}
 	}
+	
+	@UiHandler("employeesButton")
+	void onClickEmployees (ClickEvent e) {
+		History.newItem(HistoryTokens.EMPLOYEES);
+	}
+	
+	public void showEmployees() {
+		hideAllWidgets();
+		if (employeeView == null) {
+			employeeView = new EmployeeView();
+			setWidgetAsExample(employeeView);
+		} else {
+			employeeView.setVisible(true);
+		}
+	}
+
+	@UiHandler("phoneBookButton")
+	void onClickPhoneBook (ClickEvent e) {
+		History.newItem(HistoryTokens.PHONEBOOK);
+	}
+
+	public void showPhoneBook() {
+		hideAllWidgets();
+		if (phoneBookView == null) {
+			phoneBookView = new PhoneBookView();
+			setWidgetAsExample(phoneBookView);
+		} else {
+			phoneBookView.setVisible(true);
+		}
+	}
 
 }
