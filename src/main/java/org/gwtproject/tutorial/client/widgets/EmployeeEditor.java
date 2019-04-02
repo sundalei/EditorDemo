@@ -1,6 +1,6 @@
 package org.gwtproject.tutorial.client.widgets;
 
-import org.gwtproject.tutorial.client.domain.Employee;
+import org.gwtproject.tutorial.client.EmployeeProxy;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class EmployeeEditor extends Composite implements Editor<Employee> {
+public class EmployeeEditor extends Composite implements Editor<EmployeeProxy> {
 
 	private static EmployeeEditorUiBinder uiBinder = GWT.create(EmployeeEditorUiBinder.class);
 

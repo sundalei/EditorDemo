@@ -1,9 +1,23 @@
-package org.gwtproject.tutorial.client.domain;
+package org.gwtproject.tutorial.server;
 
 public class Employee {
+	
 	private Long id;
+	private Integer version;
 	private String name;
 	private String title;
+	
+	public static Employee findEmployee(Long id) {
+		return null;
+	}
+	
+	public void persist(Employee e) {
+		
+	}
+	
+	public void remove(Employee e) {
+		
+	}
 
 	public Long getId() {
 		return id;
@@ -11,6 +25,14 @@ public class Employee {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	public String getName() {

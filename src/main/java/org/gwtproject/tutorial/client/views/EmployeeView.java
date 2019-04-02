@@ -1,8 +1,14 @@
 package org.gwtproject.tutorial.client.views;
 
+import org.gwtproject.tutorial.client.EmployeeFactory;
+import org.gwtproject.tutorial.client.EmployeeFactory.EmployeeRequest;
+import org.gwtproject.tutorial.client.EmployeeProxy;
+import org.gwtproject.tutorial.client.widgets.EmployeeEditor;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -10,8 +16,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import org.gwtproject.tutorial.client.domain.Employee;
-import org.gwtproject.tutorial.client.widgets.EmployeeEditor;
+import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class EmployeeView extends Composite {
 
@@ -19,13 +25,15 @@ public class EmployeeView extends Composite {
 
 	interface EmployeeViewUiBinder extends UiBinder<Widget, EmployeeView> {
 	}
-
-	Employee employee;
+	
+	private EmployeeRequest requestContext;
+	private EmployeeFactory requestFactory;
+	private EmployeeProxy employeeProxy;
 
 	@UiField
 	EmployeeEditor employeeEditor;
 
-	interface Driver extends SimpleBeanEditorDriver<Employee, EmployeeEditor> {
+	interface Driver extends RequestFactoryEditorDriver<EmployeeProxy, EmployeeEditor> {
 	}
 
 	Driver driver = GWT.create(Driver.class);
@@ -41,10 +49,14 @@ public class EmployeeView extends Composite {
 
 
 	public EmployeeView() {
-		employee = new Employee();
 		initWidget(uiBinder.createAndBindUi(this));
-		driver.initialize(employeeEditor);
-		driver.edit(employee);
+		requestFactory = GWT.create(EmployeeFactory.class);
+		requestContext = requestFactory.createEmployeeRequest();
+		final EventBus eventBus = new SimpleEventBus();
+		requestFactory.initialize(eventBus);
+		driver.initialize(eventBus, requestFactory, employeeEditor);
+		employeeProxy = requestContext.create(EmployeeProxy.class);
+		driver.edit(employeeProxy, requestContext);
 	}
 
 	@UiHandler("resetEmployeeButton")
@@ -54,7 +66,8 @@ public class EmployeeView extends Composite {
 
 	@UiHandler("saveEmployeeButton")
 	void onClickSave (ClickEvent e) {
-		driver.flush();
+		requestContext = (EmployeeRequest) driver.flush();
+		requestContext.fire();
 		if (driver.hasErrors()) {
 			Window.alert("There are Errors!");
 		}
@@ -62,7 +75,18 @@ public class EmployeeView extends Composite {
 
 	@UiHandler("fetchEmployeeButton")
 	void onClickGet(ClickEvent e) {
-		driver.edit(employee);
+		final EmployeeRequest context = requestFactory.createEmployeeRequest();
+		requestContext = (EmployeeRequest) driver.flush();
+		requestContext.findEmployee(1L).fire(new Receiver<EmployeeProxy>() {
+
+			@Override
+			public void onSuccess(EmployeeProxy response) {
+				if(response != null) {
+					employeeProxy = context.edit(response);
+					driver.edit(employeeProxy, context);
+				}
+			}
+		});
 	}
 
 }
