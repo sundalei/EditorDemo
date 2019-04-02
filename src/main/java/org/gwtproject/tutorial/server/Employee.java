@@ -11,11 +11,11 @@ public class Employee {
 		return null;
 	}
 	
-	public void persist(Employee e) {
+	public void persist() {
 		
 	}
 	
-	public void remove(Employee e) {
+	public void remove() {
 		
 	}
 
