@@ -50,10 +50,13 @@ public class EmployeeView extends Composite {
 
 	public EmployeeView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
 		requestFactory = GWT.create(EmployeeFactory.class);
 		requestContext = requestFactory.createEmployeeRequest();
+		
 		final EventBus eventBus = new SimpleEventBus();
 		requestFactory.initialize(eventBus);
+		
 		driver.initialize(eventBus, requestFactory, employeeEditor);
 		employeeProxy = requestContext.create(EmployeeProxy.class);
 		driver.edit(employeeProxy, requestContext);
@@ -67,10 +70,21 @@ public class EmployeeView extends Composite {
 	@UiHandler("saveEmployeeButton")
 	void onClickSave (ClickEvent e) {
 		requestContext = (EmployeeRequest) driver.flush();
-		requestContext.fire();
+		final EmployeeRequest context = requestFactory.createEmployeeRequest();
 		if (driver.hasErrors()) {
-			Window.alert("There are Errors!");
+			Window.alert("Driver error!");
 		}
+		// persist in the database
+		requestContext.persist().using(employeeProxy).fire(new Receiver<EmployeeProxy> () {
+
+			@Override
+			public void onSuccess(EmployeeProxy response) {
+				GWT.log(response.getId() + response.getName());
+				employeeProxy = context.edit(response);
+				driver.edit(employeeProxy, context);
+			}
+			
+		});
 	}
 
 	@UiHandler("fetchEmployeeButton")

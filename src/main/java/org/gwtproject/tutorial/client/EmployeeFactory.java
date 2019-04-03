@@ -14,9 +14,9 @@ public interface EmployeeFactory extends RequestFactory {
 	
 	@Service(value = Employee.class)
 	public interface EmployeeRequest extends RequestContext {
+		
 		Request<EmployeeProxy> findEmployee(Long id);
 		
-		InstanceRequest<EmployeeProxy, Void> persist();
-		InstanceRequest<EmployeeProxy, Void> remove();
+		InstanceRequest<EmployeeProxy, EmployeeProxy> persist();
 	}
 }

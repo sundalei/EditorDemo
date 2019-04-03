@@ -1,5 +1,7 @@
 package org.gwtproject.tutorial.server;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class Employee {
 	
 	private Long id;
@@ -7,12 +9,21 @@ public class Employee {
 	private String name;
 	private String title;
 	
+	static AtomicLong index = new AtomicLong();
+	
 	public static Employee findEmployee(Long id) {
-		return null;
+		Employee employee = new Employee();
+		employee.setId(1L);
+		employee.setName("test");
+		employee.setTitle("name");
+		return employee;
 	}
 	
-	public void persist() {
+	public Employee persist() {
 		
+		Employee result = EmployeeEntityManager.persist(this);
+		System.out.println(EmployeeEntityManager.list());
+		return result;
 	}
 	
 	public void remove() {
@@ -49,5 +60,10 @@ public class Employee {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", version=" + version + ", name=" + name + ", title=" + title + "]";
 	}
 }
