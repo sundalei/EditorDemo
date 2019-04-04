@@ -25,7 +25,7 @@ public class EmployeeView extends Composite {
 
 	interface EmployeeViewUiBinder extends UiBinder<Widget, EmployeeView> {
 	}
-	
+
 	private EmployeeRequest requestContext;
 	private EmployeeFactory requestFactory;
 	private EmployeeProxy employeeProxy;
@@ -47,43 +47,39 @@ public class EmployeeView extends Composite {
 	@UiField
 	Button fetchEmployeeButton;
 
-
 	public EmployeeView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		
+
 		requestFactory = GWT.create(EmployeeFactory.class);
 		requestContext = requestFactory.createEmployeeRequest();
-		
+
 		final EventBus eventBus = new SimpleEventBus();
 		requestFactory.initialize(eventBus);
-		
+
 		driver.initialize(eventBus, requestFactory, employeeEditor);
 		employeeProxy = requestContext.create(EmployeeProxy.class);
 		driver.edit(employeeProxy, requestContext);
 	}
 
 	@UiHandler("resetEmployeeButton")
-	void onClickReset (ClickEvent e) {
+	void onClickReset(ClickEvent e) {
 		employeeEditor.resetValues();
 	}
 
 	@UiHandler("saveEmployeeButton")
-	void onClickSave (ClickEvent e) {
+	void onClickSave(ClickEvent e) {
 		requestContext = (EmployeeRequest) driver.flush();
 		final EmployeeRequest context = requestFactory.createEmployeeRequest();
 		if (driver.hasErrors()) {
 			Window.alert("Driver error!");
 		}
-		// persist in the database
-		requestContext.persist().using(employeeProxy).fire(new Receiver<EmployeeProxy> () {
-
+		
+		requestContext.persist().using(employeeProxy).fire(new Receiver<EmployeeProxy>() {
 			@Override
 			public void onSuccess(EmployeeProxy response) {
-				GWT.log(response.getId() + response.getName());
 				employeeProxy = context.edit(response);
 				driver.edit(employeeProxy, context);
 			}
-			
 		});
 	}
 
@@ -95,7 +91,7 @@ public class EmployeeView extends Composite {
 
 			@Override
 			public void onSuccess(EmployeeProxy response) {
-				if(response != null) {
+				if (response != null) {
 					employeeProxy = context.edit(response);
 					driver.edit(employeeProxy, context);
 				}

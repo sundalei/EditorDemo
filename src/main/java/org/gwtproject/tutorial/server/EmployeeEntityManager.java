@@ -11,7 +11,6 @@ public class EmployeeEntityManager {
 	static AtomicLong index = new AtomicLong();
 
 	public static Employee persist(Employee entity) {
-		System.out.println(Thread.currentThread().getName());
 		if (entity.getId() == null) {
 			entity.setId(index.incrementAndGet());
 			entity.setVersion(1);

@@ -12,17 +12,12 @@ public class Employee {
 	static AtomicLong index = new AtomicLong();
 	
 	public static Employee findEmployee(Long id) {
-		Employee employee = new Employee();
-		employee.setId(1L);
-		employee.setName("test");
-		employee.setTitle("name");
-		return employee;
+		return EmployeeEntityManager.fetch(id);
 	}
 	
 	public Employee persist() {
 		
 		Employee result = EmployeeEntityManager.persist(this);
-		System.out.println(EmployeeEntityManager.list());
 		return result;
 	}
 	
