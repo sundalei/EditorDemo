@@ -15,6 +15,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.LongBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -46,6 +47,9 @@ public class EmployeeView extends Composite {
 
 	@UiField
 	Button fetchEmployeeButton;
+	
+	@UiField
+	LongBox fetchId;
 
 	public EmployeeView() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -73,10 +77,10 @@ public class EmployeeView extends Composite {
 		if (driver.hasErrors()) {
 			Window.alert("Driver error!");
 		}
-		
 		requestContext.persist().using(employeeProxy).fire(new Receiver<EmployeeProxy>() {
 			@Override
 			public void onSuccess(EmployeeProxy response) {
+				
 				employeeProxy = context.edit(response);
 				driver.edit(employeeProxy, context);
 			}
@@ -85,13 +89,14 @@ public class EmployeeView extends Composite {
 
 	@UiHandler("fetchEmployeeButton")
 	void onClickGet(ClickEvent e) {
-		final EmployeeRequest context = requestFactory.createEmployeeRequest();
+		
 		requestContext = (EmployeeRequest) driver.flush();
-		requestContext.findEmployee(1L).fire(new Receiver<EmployeeProxy>() {
-
+		final EmployeeRequest context = requestFactory.createEmployeeRequest();
+		requestContext.findEmployee(fetchId.getValue()).fire(new Receiver<EmployeeProxy>() {
 			@Override
 			public void onSuccess(EmployeeProxy response) {
 				if (response != null) {
+					GWT.log(response.getId() + "");
 					employeeProxy = context.edit(response);
 					driver.edit(employeeProxy, context);
 				}

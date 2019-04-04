@@ -16,7 +16,6 @@ public class Employee {
 	}
 	
 	public Employee persist() {
-		
 		Employee result = EmployeeEntityManager.persist(this);
 		return result;
 	}

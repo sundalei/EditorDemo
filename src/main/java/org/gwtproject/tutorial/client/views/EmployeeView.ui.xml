@@ -12,8 +12,6 @@
 					<g:Label addStyleNames="{style.instr}">Click Clear to reset the GUI.</g:Label>
 					<g:Label addStyleNames="{style.instr}">Click Get to update the GUI with backing object data.</g:Label>
 					<g:Label addStyleNames="{style.instr}" height="82px">Uses Editor with SimpleBeanEditorDriver</g:Label>
-
-
 				</g:FlowPanel>
 			</g:north>
 			<g:center size="100">
@@ -21,10 +19,10 @@
 			</g:center>
 			<g:south size="67.0">
 				<g:FlowPanel>
+				    <g:LongBox ui:field="fetchId" alignment="LEFT" ></g:LongBox>
 					<g:Button styleName="{style.important}" ui:field="fetchEmployeeButton" text="Get"/>
 					<g:Button styleName="{style.important}" ui:field="saveEmployeeButton" text="Save"/>
 					<g:Button styleName="{style.important}" ui:field="resetEmployeeButton" text="Clear"/>
-
 				</g:FlowPanel>
 			</g:south>
 		</g:DockLayoutPanel>

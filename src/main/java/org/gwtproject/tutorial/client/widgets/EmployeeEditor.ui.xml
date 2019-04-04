@@ -6,17 +6,14 @@
 	<ui:style src="../common.css" />
 	
 	<g:HTMLPanel>
-		<g:FlowPanel addStyleNames="{style.flowpanel}"
-			height="123px">
+		<g:FlowPanel addStyleNames="{style.flowpanel}" height="123px">
 			<g:FlowPanel>
 				<g:Label addStyleNames="{style.label}">Name:</g:Label>
-				<g:TextBox ui:field="name" textAlignment="ALIGN_LEFT"
-					visibleLength="30" maxLength="30"></g:TextBox>
+				<g:TextBox ui:field="name" textAlignment="ALIGN_LEFT" visibleLength="30" maxLength="30"></g:TextBox>
 			</g:FlowPanel>
 			<g:FlowPanel>
 				<g:Label addStyleNames="{style.label}">Title:</g:Label>
-				<g:TextBox ui:field="employeeTitle"
-					textAlignment="ALIGN_LEFT" visibleLength="30" maxLength="30"></g:TextBox>
+				<g:TextBox ui:field="employeeTitle" textAlignment="ALIGN_LEFT" visibleLength="30" maxLength="30"></g:TextBox>
 			</g:FlowPanel>
 		</g:FlowPanel>
 
