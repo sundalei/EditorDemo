@@ -12,6 +12,7 @@ public class Employee {
 	static AtomicLong index = new AtomicLong();
 	
 	public static Employee findEmployee(Long id) {
+		// invoked every time when sync needed between client and server.
 		return EmployeeEntityManager.fetch(id);
 	}
 	
@@ -56,8 +57,8 @@ public class Employee {
 		this.title = title;
 	}
 
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", version=" + version + ", name=" + name + ", title=" + title + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Employee [id=" + id + ", version=" + version + ", name=" + name + ", title=" + title + "]";
+//	}
 }

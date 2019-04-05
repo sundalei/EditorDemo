@@ -32,9 +32,6 @@ public class EmployeeEntityManager {
 
 	public static Employee fetch(Long id) {
 		Employee employee = entities.get(id);
-		if (employee == null) {
-			return null;
-		}
 		return employee;
 	}
 }
