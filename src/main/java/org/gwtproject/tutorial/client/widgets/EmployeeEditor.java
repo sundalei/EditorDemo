@@ -1,21 +1,19 @@
 package org.gwtproject.tutorial.client.widgets;
 
-import java.util.List;
-
 import org.gwtproject.tutorial.client.domain.Employee;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.client.HasEditorErrors;
-import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.editor.client.EditorDelegate;
+import com.google.gwt.editor.client.ValueAwareEditor;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 
-public class EmployeeEditor extends Composite implements LeafValueEditor<Employee> {
+public class EmployeeEditor extends Composite implements ValueAwareEditor<Employee> {
 
 	private static EmployeeEditorUiBinder uiBinder = GWT.create(EmployeeEditorUiBinder.class);
 
@@ -33,7 +31,9 @@ public class EmployeeEditor extends Composite implements LeafValueEditor<Employe
 	@Ignore
 	Label id;
 	
+	private EditorDelegate<Employee> employeeDelegate;
 	private Employee employee;
+	private HandlerRegistration subscription;
 	
 	public EmployeeEditor() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -45,13 +45,25 @@ public class EmployeeEditor extends Composite implements LeafValueEditor<Employe
 	}
 
 	@Override
-	public void setValue(Employee value) {
-		this.employee = value;
+	public void setDelegate(EditorDelegate<Employee> delegate) {
+		employeeDelegate = delegate;
+		subscription = delegate.subscribe();
 	}
 
 	@Override
-	public Employee getValue() {
-		return this.employee;
+	public void flush() {
+		this.employee.setName(this.employee.getName().toUpperCase());
+		this.employee.setTitle(this.employee.getTitle().toUpperCase());
+	}
+
+	@Override
+	public void onPropertyChange(String... paths) {
+		// No-op
+	}
+
+	@Override
+	public void setValue(Employee value) {
+		this.employee = value;
 	}
 
 }
