@@ -1,16 +1,18 @@
 package org.gwtproject.tutorial.client.domain;
 
-public class Employee {
-	private Long id;
+import java.io.Serializable;
+
+public class Employee implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String title;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	private Integer version;
+	private Long employeeId;
+	private String hiddenValue;
+	
+	public Employee() {
+		name = "Charles Lewis";
+		title = "Manager";
 	}
 
 	public String getName() {
@@ -28,4 +30,29 @@ public class Employee {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getHiddenValue() {
+		return hiddenValue;
+	}
+
+	public void setHiddenValue(String hiddenValue) {
+		this.hiddenValue = hiddenValue;
+	}
+
 }
