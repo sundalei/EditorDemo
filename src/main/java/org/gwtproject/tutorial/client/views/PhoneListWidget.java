@@ -30,17 +30,9 @@ public class PhoneListWidget extends Composite {
 	interface Binder extends UiBinder<Widget, PhoneListWidget> {
 	}
 
-	/**
-	 * A driver that accepts a List of PhoneProxy objects, controlled by a
-	 * ListEditor of PhoneProxy instances, displayed using NameLabels.
-	 */
-	interface Driver extends RequestFactoryEditorDriver<List<PhoneProxy>, //
-			ListEditor<PhoneProxy, PhoneEditor>> {
+	interface Driver extends RequestFactoryEditorDriver<List<PhoneProxy>, ListEditor<PhoneProxy, PhoneEditor>> {
 	}
 
-	/**
-	 * This is used by the ListEditor to control the state of the UI.
-	 */
 	private class PhoneEditorSource extends EditorSource<PhoneEditor> {
 		@Override
 		public PhoneEditor create(int index) {
@@ -114,15 +106,12 @@ public class PhoneListWidget extends Composite {
 		factory = GWT.create(ContactFactory.class);
 
 		initWidget(GWT.<Binder>create(Binder.class).createAndBindUi(this));
-		// Create the driver which manages the data-bound widgets
 		driver = GWT.<Driver>create(Driver.class);
 
-		// Use a ListEditor that uses PhoneEditorSource
 		editor = ListEditor.of(new PhoneEditorSource());
 		driver.initialize(eventBus, factory, editor);
 		request = factory.createPhoneRequest();
 		driver.display(new ArrayList<PhoneProxy>());
-		// Modifying this list triggers widget creation and destruction
 		displayedList = editor.getList();
 
 		// Create max number of phones

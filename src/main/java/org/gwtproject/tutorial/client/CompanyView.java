@@ -160,7 +160,7 @@ public class CompanyView extends Composite {
 			contactEditor = new ContactEditor();
 			setWidgetAsExample(contactEditor);
 		} else {
-			//contactEditor.reset();
+			contactEditor.reset();
 			contactEditor.setVisible(true);
 		}
 	}
