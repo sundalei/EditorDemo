@@ -7,13 +7,29 @@
 
   <!-- Servlets -->
   <servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>org.gwtproject.tutorial.server.BootstrapValidationServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+  <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>org.gwtproject.tutorial.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet>
+  <servlet-name>requestFactoryServlet</servlet-name>
+  <servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/editordemo/greet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  <servlet-name>requestFactoryServlet</servlet-name>
+  <url-pattern>/gwtRequest</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

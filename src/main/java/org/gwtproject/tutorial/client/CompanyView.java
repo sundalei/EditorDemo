@@ -27,7 +27,7 @@ public class CompanyView extends Composite {
 
 	interface CompanyViewUiBinder extends UiBinder<Widget, CompanyView> {
 	}
-	
+
 	interface Resources extends ClientBundle {
 		@Source("gwtia.jpg")
 		public ImageResource logo();
@@ -39,7 +39,7 @@ public class CompanyView extends Composite {
 		introPanel = new IntroPanel();
 		setWidgetAsExample(introPanel);
 	}
-	
+
 	private void setWidgetToMaxWidthAndHeight() {
 		setWidth("100%");
 		setHeight(Window.getClientHeight() + "px");
@@ -51,64 +51,64 @@ public class CompanyView extends Composite {
 	}
 
 	private IntroPanel introPanel;
-	
+
 	private EmployeeView employeeView;
-	
+
 	private PhoneBookView phoneBookView;
-	
+
 	private ContactEditor contactEditor;
-	
+
 	private ListAllContactsView allContactsEditor;
-	
+
 	private ListAllContactsEditor allContactsEditor2;
-	
+
 	@UiField
 	Button employeesButton;
-	
+
 	@UiField
 	Button phoneBookButton;
-	
+
 	@UiField
 	Button contactButton;
-	
+
 	@UiField
 	FlowPanel examplesPanel;
-	
+
 	@UiField
 	Button introPanelButton;
-	
+
 	@UiField
 	Button listAllContactsButton;
-	
+
 	@UiField
 	Button listAllContactsButton2;
-	
+
 	private void hideAllWidgets() {
-		if(introPanel != null) {
+		if (introPanel != null) {
 			introPanel.setVisible(false);
 		}
-		if(employeeView != null) {
+		if (employeeView != null) {
 			employeeView.setVisible(false);
 		}
 		if (phoneBookView != null) {
 			phoneBookView.setVisible(false);
 		}
-		if(contactEditor != null) {
+		if (contactEditor != null) {
 			contactEditor.setVisible(false);
 		}
-		if(allContactsEditor != null) {
+		if (allContactsEditor != null) {
 			allContactsEditor.setVisible(false);
 		}
-		if(allContactsEditor2 != null) {
+		if (allContactsEditor2 != null) {
 			allContactsEditor2.setVisible(false);
 		}
 	}
-	
+
 	@UiHandler("introPanelButton")
 	void onClickIntroduction(ClickEvent e) {
 		History.newItem("");
 	}
-	
+
 	public void showIntro() {
 		hideAllWidgets();
 		if (introPanel == null) {
@@ -118,12 +118,12 @@ public class CompanyView extends Composite {
 			introPanel.setVisible(true);
 		}
 	}
-	
+
 	@UiHandler("employeesButton")
-	void onClickEmployees (ClickEvent e) {
+	void onClickEmployees(ClickEvent e) {
 		History.newItem(HistoryTokens.EMPLOYEES);
 	}
-	
+
 	public void showEmployees() {
 		hideAllWidgets();
 		if (employeeView == null) {
@@ -135,7 +135,7 @@ public class CompanyView extends Composite {
 	}
 
 	@UiHandler("phoneBookButton")
-	void onClickPhoneBook (ClickEvent e) {
+	void onClickPhoneBook(ClickEvent e) {
 		History.newItem(HistoryTokens.PHONEBOOK);
 	}
 
@@ -146,6 +146,22 @@ public class CompanyView extends Composite {
 			setWidgetAsExample(phoneBookView);
 		} else {
 			phoneBookView.setVisible(true);
+		}
+	}
+
+	@UiHandler("contactButton")
+	void onClickContacts(ClickEvent e) {
+		History.newItem(HistoryTokens.CONTACTS);
+	}
+
+	public void showContacts() {
+		hideAllWidgets();
+		if (contactEditor == null) {
+			contactEditor = new ContactEditor();
+			setWidgetAsExample(contactEditor);
+		} else {
+			//contactEditor.reset();
+			contactEditor.setVisible(true);
 		}
 	}
 

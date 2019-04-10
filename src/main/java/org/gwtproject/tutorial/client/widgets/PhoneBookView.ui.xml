@@ -15,12 +15,14 @@
 					<g:Label addStyleNames="{style.instr}" height="82px">Uses Editor with SimpleBeanEditorDriver and Editor with no-arg methods</g:Label>
 				</g:FlowPanel>
 			</g:north>
+			
 			<g:center size="200">
 				<g:FlowPanel>
 					<dt:EmployeeEditor ui:field="employeeEditor"></dt:EmployeeEditor>
 					<dt:PhoneNumberEditor ui:field="phoneNumberEditor" height="244px"></dt:PhoneNumberEditor>
 				</g:FlowPanel>
 			</g:center>
+			
 			<g:south size="44.0">
 				<g:FlowPanel>
 					<g:Button styleName="{style.important}" ui:field="fetchEmployeeButton" text="Get" />
